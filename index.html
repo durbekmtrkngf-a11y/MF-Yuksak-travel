@@ -191,6 +191,7 @@ document.addEventListener("submit",e=>{if(e.target.id=="sf"){e.preventDefault();
 
 var FB=null,CLOUD={st:"",init:{},snap:{}};
 try{FB=JSON.parse(localStorage.getItem("mf-fb")||"null")}catch(e){}
+if(!FB)FB={apiKey:"AIzaSyAPk4mgbYZg6WdRcCF7MyTJPWQ02Q81VnQ",authDomain:"mf-yuksak--travel.firebaseapp.com",projectId:"mf-yuksak--travel",storageBucket:"mf-yuksak--travel.firebasestorage.app",messagingSenderId:"702505034740",appId:"1:702505034740:web:0d416c5f5d17316c7b4fa1"};
 if(FB)CLOUD.st="load";
 const J=o=>JSON.stringify(o,(k,v)=>v&&typeof v=="object"&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
 async function cloudInit(){if(!FB)return;
@@ -217,7 +218,7 @@ function push(){if(!CLOUD.user||!CLOUD.db)return;const Fs=CLOUD.Fs,db=CLOUD.db,e
  const sj=J(S);if(CLOUD.snap["settings/main"]!==sj){CLOUD.snap["settings/main"]=sj;Fs.setDoc(Fs.doc(db,"settings","main"),JSON.parse(sj)).catch(er)}}
 function cloudOut(){CLOUD.Au.signOut(CLOUD.auth).then(()=>{R=[];P=[];local();go()})}
 function vLogin(){return `<div class="card" style="max-width:380px;margin:30px auto"><h2 style="margin-top:0">Kirish</h2><form id="lf"><label>Email</label><input name="e" type="email" autocomplete="username" required><label>Parol</label><input name="p" type="password" autocomplete="current-password" required><div id="le" class="bad" style="margin-top:8px"></div><div class="btns"><button class="pri">Kirish</button></div></form></div>`}
-function cloudCard(){return `<h2>Umumiy baza (bulut)</h2><div class="card">`+(FB?`<div class="pl"><span>Holat</span><b>${CLOUD.user?esc(CLOUD.user.email):"Ulanmagan"}</b></div><div class="acts"><button data-a="fbout">Chiqish</button><button class="del" data-a="fboff">Bulutni oʻchirish</button></div>`:`<p class="mut">Bir nechta xodim bir xil ma’lumot bilan ishlashi uchun Firebase sozlamasini joylang (OQING.md faylida yoʻriqnoma bor).</p><textarea id="fbc" rows="5" placeholder="firebaseConfig"></textarea><div class="acts"><button class="pri" data-a="fbsave" style="border:0">Ulash</button></div>`)+`</div>`}
+function cloudCard(){return `<h2>Umumiy baza (bulut)</h2><div class="card">`+(FB?`<div class="pl"><span>Holat</span><b>${CLOUD.user?esc(CLOUD.user.email):"Ulanmagan"}</b></div><div class="acts"><button data-a="fbout">Chiqish</button></div>`:`<p class="mut">Bir nechta xodim bir xil ma’lumot bilan ishlashi uchun Firebase sozlamasini joylang (OQING.md faylida yoʻriqnoma bor).</p><textarea id="fbc" rows="5" placeholder="firebaseConfig"></textarea><div class="acts"><button class="pri" data-a="fbsave" style="border:0">Ulash</button></div>`)+`</div>`}
 function vSet(){return vSet0()+cloudCard()}
 document.addEventListener("submit",e=>{if(e.target.id=="lf"){e.preventDefault();const f=e.target.elements;CLOUD.Au.signInWithEmailAndPassword(CLOUD.auth,f.e.value.trim(),f.p.value).catch(x=>{$("#le").textContent="Email yoki parol notoʻgʻri, yoki internet yoʻq."})}});
 document.addEventListener("click",e=>{const t=e.target.closest("[data-a]");if(!t)return;const a=t.dataset.a;
